@@ -69,8 +69,8 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/usable-inputs.yaml
-    
-    
+    with:
+      artifact-name: dist-files    
   report:
     needs: [lint, deploy] #in order for this job to run last after all other job finish and itt actually listens to all others in the chain
     if: failure() # triggered upon failure in any job
