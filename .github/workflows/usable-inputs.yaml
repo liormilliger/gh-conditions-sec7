@@ -1,0 +1,21 @@
+name: Reusable Deploy
+on:
+  workflow_call: # When we want to retrieve some input from the job this attached to
+    inputs: # we use th input context
+      artifact-name: # We want to get the Artifact name
+        Description: The name of the deployable artifact files
+        required: false #Whether true or false might fail this
+        default: dist # If no other was found this will be used as default
+        type: string 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }} # We call it from previous 
+      - name: List Files
+        run: ls
+      - name: Output Information
+        run: echo "Deploying & Uploading..."
